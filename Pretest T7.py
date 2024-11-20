@@ -3,7 +3,7 @@
 
 predef_list = [4, -27, 15, 33, -10]
 
-userint = int(input("Enter a number: "))
+userint = int(input())
 
 is_greater = True
 
