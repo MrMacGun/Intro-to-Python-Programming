@@ -12,4 +12,4 @@ print("A parrot likes to talk a lot, it shouldn't be talking from before 7 or af
 print("Enter two inputs, if the parrot is or isn't talking enter True or False")
 print("Enter the hour the parrort is talking")
 
-print(parrot_trouble(str(input()), int(input())))
+print(parrot_trouble(bool(input()), int(input())))

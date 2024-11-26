@@ -1,5 +1,2 @@
-def greet(name):
-    print(f"Hello, {name}!")
-
-# Example usage:
-greet(str(input()))
+newstr = 'not candy'
+print(newstr[0:3])
