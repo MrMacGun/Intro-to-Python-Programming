@@ -6,21 +6,26 @@
 #Handle the exception in __main__ and print the ValueError message along with "Could not calculate heart rate info."
 
 def get_age():
-    age = int(input())
-    validin = True
-    if age < 18:
-        print("Invalid Input")
-    elif age > 75:
-        print("Invalid Input")
-    else:
-        return age
+    try:
+        age = int(input())  # Prompt for age input
+        # Check if age is within the valid range (18 to 75 inclusive)
+        if 18 <= age <= 75:
+            return age
+        else:
+            raise ValueError("Invalid age.")  # If the age is out of range, raise an exception
+    except ValueError:
+        # If age is invalid, raise an error with a custom message
+        raise ValueError("Invalid age.\nCould not calculate heart rate info.")
 
-# TODO: Complete fat_burning_heart_rate() function
 def fat_burning_heart_rate(age):
-    220 - get_age
+    # Fat burning heart rate is calculated as 70% of the difference between 220 and the age
+    heart_rate = (220 - age) * 0.70
     return heart_rate
 
 if __name__ == "__main__":
-    # TODO: Modify to call get_age() and fat_burning_heart_rate()
-    #       and handle the exception
-    age = get_age()
+    try:
+        age = get_age()  # Get age from user input
+        heart_rate = fat_burning_heart_rate(age)  # Calculate heart rate
+        print(f'Fat burning heart rate for a {age} year-old: {heart_rate:.1f} bpm')
+    except ValueError as e:
+        print(e)  # Print the error message if the age is invalid

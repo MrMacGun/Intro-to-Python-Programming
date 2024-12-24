@@ -12,4 +12,4 @@ total = 0
 for stock in stock_selection:
     total += stocks[stock]
 
-print(f'Total price: ${total}')
+print(f'Total price: ${total:.2f}')
