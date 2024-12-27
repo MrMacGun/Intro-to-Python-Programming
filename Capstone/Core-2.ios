@@ -1,5 +1,5 @@
 hostname Core-2
-banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personel. Acces is logged and monitored. This device is for offical use only and any unauthorized action is punishable by the full extent of the law &
+banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personnel. Access is logged and monitored. This device is for official use only and any unauthorized action is punishable by the full extent of the law &
 
 username cisco secret cisco
 service password-encryption
@@ -19,49 +19,56 @@ ip routing
 interface fastEthernet0/2
 no switchport
 description To ISP-1 G0/0
-ip address 123.66.66.4 255.255.255.252
+ip address 123.66.66.9 255.255.255.252
+ip ospf 1 area 0 
 
 interface vlan 111
 description Network Login
 ip address 192.168.1.3 255.255.255.0
-standby ip 192.168.1.1
-standby track fastEthernet 0/1 
+standby 1 ip 192.168.1.1
+standby 1 track fastEthernet 0/1
 standby version 2
-no shut
+ip ospf 1 area 0 
+standby 1
+no shutdown
 
 ntp server 123.66.66.2
 
 interface vlan 16
 description IP-Phone
 ip address 192.168.2.3 255.255.255.192
-standby ip 192.168.2.1
-standby track fastEthernet 0/1 
+standby 2 ip 192.168.2.1
+standby 2 track fastEthernet 0/1
 standby version 2
-no shut
+ip ospf 1 area 0 
+no shutdown
 
 interface vlan 22
 description User-PC
 ip address 172.16.1.3 255.255.254.0
-standby ip 172.16.1.1
-standby track fastEthernet 0/1 
+standby 3 ip 172.16.1.1
+standby 3 track fastEthernet 0/1
 standby version 2
-no shut
+ip ospf 1 area 0 
+no shutdown
 
 interface vlan 15
 description Server
 ip address 172.16.3.3 255.255.255.224
-standby ip 172.16.3.1
-standby track fastEthernet 0/1 
+standby 4 ip 172.16.3.1
+standby 4 track fastEthernet 0/1
 standby version 2
-no shut
+ip ospf 1 area 0 
+no shutdown
 
 interface vlan 35
 description AP
-ip address 192.169.1.3 255.255.255.0
-standby ip 192.169.1.1
-standby track fastEthernet 0/1 
+ip address 192.168.5.3 255.255.255.0
+standby 5 ip 192.168.5.1
+standby 5 track fastEthernet 0/1
 standby version 2
-no shut
+ip ospf 1 area 0 
+no shutdown
 
 vtp domain cisco
 vtp password cisco
@@ -89,43 +96,54 @@ switchport trunk allowed vlan all
 router ospf 1
 router-id 1.1.1.4
 network 123.66.66.0 0.0.0.3 area 0
-network 123.66.66.6 0.0.0.3 area 0
-network 123.66.66.9 0.0.0.3 area 0
+network 123.66.66.4 0.0.0.3 area 0
+network 123.66.66.8 0.0.0.3 area 0
 network 186.55.55.0 0.0.0.3 area 0
-network 123.66.66.3 0.0.0.3 area 0
+network 186.55.55.4 0.0.0.3 area 6
 network 172.16.1.0 0.0.1.255 area 0
+network 172.16.0.0 0.0.1.255 area 0
 network 172.16.3.0 0.0.0.31 area 0
 network 192.168.2.0 0.0.0.63 area 0
 
 ip access-list extended 101
-permit icmp any any 
-permit tcp any any  eq pop3
-permit tcp any any  eq www
+permit icmp any any
+permit tcp any any eq pop3
+permit tcp any any eq www
 permit tcp any any eq 443
-permit tcp any any  eq domain
+permit tcp any any eq domain
 permit udp any any eq 21
 permit udp any any eq tftp
 permit tcp 192.168.2.0 0.0.0.63 any eq 16384
+permit ip 123.66.66.0 0.0.0.255 any
+permit ip 186.55.55.0 0.0.0.255 any
+permit ip 172.16.0.0 0.0.255.255 any
+permit ip 192.168.0.0 0.0.255.255 any 
 
 ip access-list extended 102
-permit tcp any any  eq pop3
+permit tcp any any eq pop3
 permit udp any any eq 21
-
 
 interface fastEthernet0/2
 ip access-group 101 in
+ip ospf 1 area 0 
 
 interface fastEthernet0/3
 ip access-group 101 in
+ip ospf 1 area 0 
 
 interface fastEthernet0/4
 ip access-group 102 in
+ip ospf 1 area 0 
 
 interface fastEthernet0/5
 ip access-group 101 in
+ip ospf 1 area 0 
 
 spanning-tree mode rapid-pvst
 
 interface fastEthernet0/6
 switchport mode access
 switchport access vlan 35
+ip ospf 1 area 0 
+
+ip route 0.0.0.0 0.0.0.0 fa0/2

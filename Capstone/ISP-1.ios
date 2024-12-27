@@ -1,5 +1,5 @@
 hostname ISP-1
-banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personel. Acces is logged and monitored. This device is for offical use only and any unauthorized action is punishable by the full extent of the law &
+banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personnel. Access is logged and monitored. This device is for official use only and any unauthorized action is punishable by the full extent of the law &
 
 username cisco secret cisco
 service password-encryption
@@ -17,32 +17,39 @@ transport input ssh
 interface loopback 0
 description ISP Simulation
 ip address 186.55.55.1 255.255.255.252
+ip ospf 1 area 6
 
 interface loopback 1
 description Network Login
 ip address 123.66.66.5 255.255.255.252
+ip ospf 1 area 0
 
 interface loopback 2
 description Bad IP Simulation
 ip address 99.59.44.1 255.255.255.0
+ip ospf 1 area 0
 
 interface gigabitethernet 0/0
 description Inbound Network
 ip address 123.66.66.1 255.255.255.252
+ip ospf 1 area 0
+no shutdown
 
 router ospf 1
 router-id 1.1.1.1
 network 123.66.66.0 0.0.0.3 area 0
+network 123.66.66.4 0.0.0.3 area 0
 network 186.55.55.0 0.0.0.3 area 6
-network 123.66.66.3 0.0.0.3 area 0
+network 123.66.66.4 0.0.0.3 area 0
+network 99.59.44.0 0.0.0.255 area 0
 
 ntp server 123.66.66.2
 
 ip access-list extended 101
 deny ip 99.59.44.0 0.0.0.255 any
-permit ip 123.66.66.0 0.0.0.3 any
-permit ip 123.66.66.3 0.0.0.3 any
-permit ip 186.55.55.0 0.0.0.3 any
+permit ip 123.66.66.0 0.0.0.255 any
+permit ip 186.55.55.0 0.0.0.255 any
+permit ip 172.16.0.0 0.0.255.255 any
 permit ip 192.168.0.0 0.0.255.255 any 
 
 interface gigabitethernet 0/0

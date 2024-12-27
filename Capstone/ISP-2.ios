@@ -1,5 +1,5 @@
 hostname ISP-2
-banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personel. Acces is logged and monitored. This device is for offical use only and any unauthorized action is punishable by the full extent of the law &
+banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personnel. Access is logged and monitored. This device is for official use only and any unauthorized action is punishable by the full extent of the law &
 
 username cisco secret cisco
 service password-encryption
@@ -14,41 +14,41 @@ logging synchronous
 login local
 transport input ssh
 
-interface l0
+interface loopback 0
 description ISP Simulation
-ip add 186.55.55.5 255.255.255.252
+ip address 186.55.55.5 255.255.255.252
+ip ospf 1 area 6
 
 interface loopback 1
 description Network Login
-ip add 123.66.66.7 255.255.255.252
+ip address 123.66.66.7 255.255.255.252
+ip ospf 1 area 0
 
 interface loopback 2
 description Bad IP Simulation
-ip add 99.59.44.2 255.255.255.0
+ip address 99.59.44.2 255.255.255.0
+ip ospf 1 area 0
 
-interface gi0/0
+interface gigabitethernet 0/0
 description Inbound Network
-ip add 123.66.66.10 255.255.255.252
-no shut
+ip address 123.66.66.10 255.255.255.252
+no shutdown
 
 router ospf 1
 router-id 1.1.1.2
-network 123.66.66.0 0.0.0.3 area 0
-network 123.66.66.6 0.0.0.3 area 0
-network 123.66.66.9 0.0.0.3 area 0
-network 186.55.55.0 0.0.0.3 area 0
-network 123.66.66.3 0.0.0.3 area 0
-network 172.16.1.0 0.0.1.255 area 0
-network 172.16.3.0 0.0.0.31 area 0
-network 192.168.2.0 0.0.0.63 area 0
+network 123.66.66.4 0.0.0.3 area 0
+network 123.66.66.8 0.0.0.3 area 0
+network 186.55.55.0 0.0.0.3 area 6
+network 186.55.55.4 0.0.0.3 area 6
+network 99.59.44.0 0.0.0.255 area 0
 
 ntp server 123.66.66.2
 
 ip access-list extended 101
 deny ip 99.59.44.0 0.0.0.255 any
-permit ip 123.66.66.6 0.0.0.3 any
-permit ip 123.66.66.9 0.0.0.3 any
-permit IP 186.55.55.0 0.0.0.3 any
+permit ip 123.66.66.0 0.0.0.255 any
+permit ip 186.55.55.0 0.0.0.255 any
+permit ip 172.16.0.0 0.0.255.255 any
 permit ip 192.168.0.0 0.0.255.255 any 
 
 interface gigabitethernet 0/0
