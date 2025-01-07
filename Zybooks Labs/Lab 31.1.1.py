@@ -1,23 +1,26 @@
-import csv
+#https://learn.zybooks.com/zybook/WGUD335Pythonv1/chapter/31/section/1
+#Given a text file containing the availability of food items, write a program that reads the information from the text file and outputs the available food items. 
+#The program first reads the name of the text file from the user. The program then reads the text file, stores the information into four separate lists, and outputs the available food items in the following format: name (category) -- description
+#Assume the text file contains the category, name, description, and availability of at least one food item, separated by a tab character ('\t').
 
-def main():
-    filename = input()
-    movie_data = {}
-    with open(filename, newline='') as csvfile:
-        reader = csv.reader(csvfile)
-        
-        for row in reader:
-            showtime, title, rating = row
-            
-            if title not in movie_data:
-                movie_data[title] = {"rating": rating, "showtimes": []}
+filename = input().strip().lower()
+catagories = []
+names = []
+descriptions = []
+availablility = []
 
-            movie_data[title]["showtimes"].append(showtime)
+with open(f'{filename}', 'r') as file:
+    for lines in file:
+        parts = lines.strip().split('\t')
 
-    for title, data in movie_data.items():
-        title = title[:44]
-        showtimes = " ".join(data["showtimes"])
-        print(f"{title:<44} | {data['rating']:>5} | {showtimes}")
+        if len(parts) == 4:
+            catagory, name, description, avail = parts
+            catagories.append(catagory)
+            names.append(name)
+            descriptions.append(description)
+            availablility.append(avail)
+    
+    for i in range(len(names)):
+        if availablility[i] == "Available":
+            print(f"{names[i]} ({catagories[i]}) -- {descriptions[i]}")
 
-if __name__ == "__main__":
-    main()
