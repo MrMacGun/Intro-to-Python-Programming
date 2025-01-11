@@ -1,6 +1,7 @@
-  # If it's the weekend, cigars can be 40 or more
-    if is_weekend.lower() == 'yes':
-        return cigars >= 40
-    # Otherwise, cigars must be between 40 and 60, inclusive
-    else:
-        return 40 <= cigars <= 60
+int1 = int(input())
+int2 = int(input())
+int3 = int(input())
+
+ulist = [int1, int2, int3]
+print(min(ulist))
+
