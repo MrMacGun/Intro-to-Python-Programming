@@ -5,16 +5,23 @@
 #Extend the program further by implementing the output_without_whitespace() function. output_without_whitespace() outputs the string's characters except for whitespace (spaces, tabs)
 
 print("Enter a sentence or phrase:")
-userstr = str(input())
-print(userstr)
+uphra = input()
+print("")
+print(f'You entered: {uphra}')
 
-def get_num_of_characters(input_str):
-    newstr = input_str.repalce(" ","")
-    return newstr
+def get_num_characters(uphra):
+    count = 0
+    for i in range(len(uphra)):
+        count += 1
+    return count
+    
+def output_without_whitespace(uphra):
+    outphra = ""
+    for i in uphra:
+        if i != " " and i != "\n" and i != '\t':
+            outphra += i
+    return outphra 
 
-
-if __name__ == '__main__':
-    print("You entered:",userstr)
-    print("")
-    print("Number of characters: ", len(get_num_of_characters(userstr)))
-    print("String with no whitespace: ",get_num_of_characters(userstr))
+print("")
+print(f'Number of characters: {get_num_characters(uphra)}')
+print(f'String with no whitespace: {output_without_whitespace(uphra)}')

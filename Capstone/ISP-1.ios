@@ -51,6 +51,7 @@ permit ip 123.66.66.0 0.0.0.255 any
 permit ip 186.55.55.0 0.0.0.255 any
 permit ip 172.16.0.0 0.0.255.255 any
 permit ip 192.168.0.0 0.0.255.255 any 
+deny ip any any 
 
 interface gigabitethernet 0/0
 ip access-group 101 out

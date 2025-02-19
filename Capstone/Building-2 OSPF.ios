@@ -1,0 +1,74 @@
+hostname Building-2
+banner motd & This is a Nexora Cuyahoga device and access is restricted to only Network Personel. Acces is logged and monitored. This device is for offical use only and any unauthorized action is punishable by the full extent of the law &
+
+username cisco secret cisco
+service password-encryption
+
+line con 0
+motd-banner
+login local
+
+line vty 0 15
+motd-banner
+logging synchronous
+login local
+transport input ssh
+
+vtp domain cisco
+vtp password cisco
+vtp mode server
+vtp version 2
+
+interface vlan 111
+ip address 192.168.1.6 255.255.255.0
+
+ip routing
+
+router ospf 1
+router-id 1.1.1.6
+network 123.66.66.20 0.0.0.3 area 0
+network 123.66.66.24 0.0.0.3 area 0
+network 192.168.1.0 0.0.0.255 area 0
+network 172.16.3.0 0.0.254.255 area 0
+
+interface fastEthernet0/1
+no switchport
+description To Core-1 Fa0/4
+ip address 123.66.66.21 255.255.255.252
+ip ospf 1 area 0 
+
+interface fastEthernet0/2
+no switchport
+description To Core-2 Fa0/4
+ip address 123.66.66.25 255.255.255.252
+ip ospf 1 area 0 
+
+ip access-list extended 101 
+permit tcp 192.168.2.0 0.0.0.63 any eq 16384
+permit ip 123.66.66.0 0.0.0.255 any
+permit ip 186.55.55.0 0.0.0.255 any
+permit ip 172.16.0.0 0.0.255.255 any
+permit ip 192.168.0.0 0.0.255.255 any
+
+vtp mode client
+vtp domain cisco
+vtp password cisco
+
+interface fastEthernet0/1
+ip access-group 101 in
+
+interface fastEthernet0/2
+ip access-group 101 in
+
+interface fastEthernet0/3
+switchport mode access
+switchport access vlan 15
+
+interface fastEthernet0/4
+no switchport
+
+interface fastEthernet0/5
+no switchport
+
+ntp server 123.66.66.2
+spanning-tree mode rapid-pvst

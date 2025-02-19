@@ -1,7 +1,15 @@
-int1 = int(input())
-int2 = int(input())
-int3 = int(input())
+import csv
 
-ulist = [int1, int2, int3]
-print(min(ulist))
+filename = "MOCK_DATA.csv"
+temp_list = []
 
+with open(filename, 'r') as file:
+    for x in file:
+        if ".edu" in x and (len(x) > 12):
+            temp_list.append(x)
+
+new_file = "WGU_test.csv"
+
+with open(new_file, 'w') as file:
+    for x in temp_list:
+        file.write(x)
