@@ -32,7 +32,7 @@ switchport trunk allowed vlan all
 
 interface fastEthernet0/3
 switchport mode access
-switchport access vlan 22
+switchport access vlan 110
 
 interface fastEthernet0/4
 switchport mode access

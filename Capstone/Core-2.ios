@@ -70,6 +70,15 @@ standby version 2
 ip ospf 1 area 0 
 no shutdown
 
+interface vlan 110
+description Building-1
+ip address 192.168.110.3 255.255.255.0
+standby 6 ip 192.168.110.1
+standby 6 track fastEthernet 0/1
+standby version 2
+ip ospf 1 area 0 
+no shutdown
+
 vtp domain cisco
 vtp password cisco
 vtp mode client
@@ -104,6 +113,7 @@ network 172.16.1.0 0.0.1.255 area 0
 network 172.16.0.0 0.0.1.255 area 0
 network 172.16.3.0 0.0.0.31 area 0
 network 192.168.2.0 0.0.0.63 area 0
+network 192.168.110.0 0.0.0.255 area 0
 
 ip access-list extended 101
 permit icmp any any
