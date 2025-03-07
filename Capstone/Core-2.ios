@@ -116,6 +116,7 @@ network 192.168.2.0 0.0.0.63 area 0
 network 192.168.110.0 0.0.0.255 area 0
 
 ip access-list extended 101
+deny ip 99.59.44.0 0.0.0.255 any
 permit icmp any any
 permit tcp any any eq pop3
 permit tcp any any eq www
@@ -132,6 +133,10 @@ permit ip 192.168.0.0 0.0.255.255 any
 ip access-list extended 102
 permit tcp any any eq pop3
 permit udp any any eq 21
+
+ip access-list extended 103
+permit tcp host 123.66.66.0 eq www 192.168.5.0 0.0.0.255
+permit icmp host 123.66.66.0 192.168.5.0 0.0.0.255 
 
 interface fastEthernet0/2
 ip access-group 101 in
@@ -157,3 +162,14 @@ switchport access vlan 35
 ip ospf 1 area 0 
 
 ip route 0.0.0.0 0.0.0.0 fa0/2
+
+no ntp master
+ntp server 172.16.3.4
+logging on
+logging 172.16.3.4
+logging host 172.16.3.4
+logging trap debugging
+end
+debug ip ospf adj
+debug ip ospf events
+debug ip routing

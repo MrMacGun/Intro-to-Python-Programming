@@ -56,4 +56,3 @@ deny ip any any
 interface gigabitethernet 0/0
 ip access-group 101 out
 
-logging 99.59.44.0
