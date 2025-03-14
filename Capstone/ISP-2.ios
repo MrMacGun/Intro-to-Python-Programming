@@ -34,24 +34,6 @@ description Inbound Network
 ip address 123.66.66.10 255.255.255.252
 no shutdown
 
-interface fastEthernet0/3
-switchport
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk allowed vlan all
-
-interface fastEthernet0/4
-switchport
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk allowed vlan all
-
-interface fastEthernet0/5
-switchport
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk allowed vlan all
-
 router ospf 1
 router-id 1.1.1.2
 network 123.66.66.4 0.0.0.3 area 0
@@ -60,7 +42,7 @@ network 186.55.55.0 0.0.0.3 area 6
 network 186.55.55.4 0.0.0.3 area 6
 network 99.59.44.0 0.0.0.255 area 0
 
-ntp server 123.66.66.2
+ntp server 172.16.3.4
 
 ip access-list extended 101
  deny ip any 99.59.44.0 0.0.0.255
@@ -81,4 +63,3 @@ network 192.168.0.0 mask 255.255.0.0
 router ospf 1
 redistribute bgp 1
 
-logging 99.59.44.0

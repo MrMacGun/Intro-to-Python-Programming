@@ -43,7 +43,7 @@ network 186.55.55.0 0.0.0.3 area 6
 network 123.66.66.4 0.0.0.3 area 0
 network 99.59.44.0 0.0.0.255 area 0
 
-ntp server 123.66.66.2
+ntp server 172.16.3.4
 
 ip access-list extended 101
 deny ip 99.59.44.0 0.0.0.255 any

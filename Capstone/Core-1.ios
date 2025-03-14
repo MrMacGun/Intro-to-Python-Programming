@@ -36,8 +36,6 @@ standby 1 preempt
 ip ospf 1 area 0 
 no shutdown
 
-ntp master 1
-
 vlan 16
 name IP-Phone
 
@@ -133,13 +131,6 @@ network 192.168.110.0 0.0.0.255 area 0
 
 ip access-list extended 101
 deny ip 99.59.44.0 0.0.0.255 any
-permit icmp any any
-permit tcp any any eq pop3
-permit tcp any any eq www
-permit tcp any any eq 443
-permit tcp any any eq domain
-permit udp any any eq 21
-permit udp any any eq tftp
 permit tcp 192.168.2.0 0.0.0.63 any eq 16384
 permit ip 123.66.66.0 0.0.0.255 any
 permit ip 186.55.55.0 0.0.0.255 any
@@ -162,15 +153,12 @@ ip access-group 103 in
 
 interface fastEthernet0/2
 ip access-group 101 in
-ip ospf 1 area 0 
 
 interface fastEthernet0/3
 ip access-group 102 out
-ip ospf 1 area 0 
 
 interface fastEthernet0/4
 ip access-group 101 in
-ip ospf 1 area 0 
 
 spanning-tree mode rapid-pvst
 
