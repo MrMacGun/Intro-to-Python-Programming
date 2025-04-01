@@ -1,6 +1,14 @@
-filename = "F-35.txt"
-line = int(input())
+frameworks = ["Django", "Flask", "CherryPy", "Bottle", "Web2Py", "TurboGears"]
 
-with open(filename, 'r') as file:
-    lines = file.readlines()
-    print("".join(lines[-line:]))
+#use try block with exception "Error" when index value is not found in list
+#solution accepts an integer input
+#solution outputs the corresponding string value for the integer input
+
+
+try:
+    uint = int(input())
+    print(frameworks[uint])
+except EOFError:
+    print("Error")
+except IndexError:
+    print("Error")

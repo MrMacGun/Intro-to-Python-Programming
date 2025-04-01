@@ -3,32 +3,21 @@
 #Each text file contains three rows with one word per row.
 #Using the open() function and write() and read() methods, interact with the input text file to write a new sentence string composed of the three existing words to the end of the file contents on a new line. Output the new file contents.
 
-# Step 1: Prompt the user for the text file name
 filename = input()
 
-# Step 2: Open the file in read mode to fetch the words
 with open(filename, 'r') as file:
-    lines = file.readlines()
+    words = file.readlines()
+    
+    w0 = words[0].strip()
+    w1 = words[1].strip()
+    w2 = words[2].strip()
+    
+    scent = f'{w0} {w1} {w2}'
 
-# Ensure there are exactly three lines in the file
-if len(lines) != 3:
-    print("The file should contain exactly three lines of text.")
-else:
-    # Step 3: Retrieve the words and strip newline characters
-    word1 = lines[0].strip()
-    word2 = lines[1].strip()
-    word3 = lines[2].strip()
-
-    # Step 4: Form the sentence
-    sentence = f"{word1} {word2} {word3}"
-
-    # Step 5: Open the file in append mode and write the sentence
-    with open(filename, 'a') as file:
-        file.write(f"\n{sentence}")
-
-    # Step 6: Output the updated file contents
-    with open(filename, 'r') as file:
-        updated_contents = file.read()
-
-    # Output the file contents in the specified format
-    print(updated_contents)
+with open(filename, 'a') as file:
+    file.write(f"\n{scent}")
+    
+with open(filename, 'r') as file:
+    update = file.read()
+    
+    print(update)
